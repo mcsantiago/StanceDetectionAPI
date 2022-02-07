@@ -1,0 +1,89 @@
+---
+swagger: "2.0"
+info:
+  description: "The Topic Stance Detector is an NLP application designed for detecting\
+    \ the stance of a body of text. This API wraps that model and can support multiple\
+    \ topics."
+  version: "0.0.1"
+  title: "Topic Stance Detector API"
+  contact:
+    email: "carag.matthew@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "virtserver.swaggerhub.com"
+basePath: "/topic-stance-detector/v1"
+tags:
+- name: "covid-vaccine-v1"
+  description: "Topics based on various misconceptions about the COVID vaccine."
+schemes:
+- "https"
+paths:
+  /topic:
+    post:
+      tags:
+      - "covid-vaccine-v1"
+      summary: "Obtains the stance of a text body on various covid vaccine misconceptions."
+      description: "Specify the specific topic and a body of text to analyze. \n\n\
+        Supported Topics (id - description):\n0 - RNA alters a person's DNA when taking\
+        \ the COVID-19 vaccine.\n1 - The COVID-19 vaccine causes infertility or miscarriages\
+        \ in women.\n2 - Natural COVID-19 immunity is better than immunity derived\
+        \ from a COVID-19 vaccine.\n3 - The COVID-19 vaccine causes Bell's palsy.\n\
+        4 - The COVID-19 vaccine contains tissue from aborted fetuses.\n5 - The COVID-19\
+        \ vaccine was developed to control the general population either through microchip\
+        \ tracking or nanotransducers in our brains.\n6 - More people will die as\
+        \ a result of a negative side effect to the COVID-19 vaccine than would actually\
+        \ die from the coronavirus.\n7 - There are severe side effects of the coronavirus\
+        \ vaccines, worse than having the virus.\n"
+      operationId: "covid_vaccine_topic"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "covidTopic"
+        description: "A tuple of the target topic id and the body of text to analyze."
+        required: false
+        schema:
+          $ref: "#/definitions/CovidTopicRequest"
+      responses:
+        "200":
+          description: "stance result of the given target and text"
+          schema:
+            $ref: "#/definitions/CovidTopicResponse"
+        "400":
+          description: "bad input parameter"
+      x-swagger-router-controller: "swagger_server.controllers.covid_vaccine_v1_controller"
+definitions:
+  CovidTopicRequest:
+    type: "object"
+    required:
+    - "targetId"
+    - "text"
+    properties:
+      targetId:
+        type: "integer"
+        format: "integer"
+        example: 0
+      text:
+        type: "string"
+        format: "string"
+        example: "@JCope222 Vaccine is untested for safety. People have died in he\
+          \ trials. Natural immunity scores 99.975% recovery from Covid for your age\
+          \ group\n"
+    example:
+      targetId: 0
+      text: "@JCope222 Vaccine is untested for safety. People have died in he trials.\
+        \ Natural immunity scores 99.975% recovery from Covid for your age group\n"
+  CovidTopicResponse:
+    type: "object"
+    required:
+    - "result"
+    properties:
+      result:
+        type: "string"
+        format: "string"
+        example: "not_relevant"
+    example:
+      result: "not_relevant"
