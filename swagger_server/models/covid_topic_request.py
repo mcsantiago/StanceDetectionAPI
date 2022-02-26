@@ -14,7 +14,6 @@ class CovidTopicRequest(Model):
 
     Do not edit the class manually.
     """
-
     def __init__(self, target_id: int=None, text: str=None):  # noqa: E501
         """CovidTopicRequest - a model defined in Swagger
 
@@ -32,7 +31,6 @@ class CovidTopicRequest(Model):
             'target_id': 'targetId',
             'text': 'text'
         }
-
         self._target_id = target_id
         self._text = text
 

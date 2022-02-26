@@ -14,7 +14,6 @@ class CovidTopicResponse(Model):
 
     Do not edit the class manually.
     """
-
     def __init__(self, result: str=None):  # noqa: E501
         """CovidTopicResponse - a model defined in Swagger
 
@@ -28,7 +27,6 @@ class CovidTopicResponse(Model):
         self.attribute_map = {
             'result': 'result'
         }
-
         self._result = result
 
     @classmethod

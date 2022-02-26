@@ -18,11 +18,11 @@ class TestCovidVaccineV1Controller(BaseTestCase):
 
         Obtains the stance of a text body on various covid vaccine misconceptions.
         """
-        covidTopic = CovidTopicRequest()
+        body = CovidTopicRequest()
         response = self.client.open(
-            '/topic-stance-detector/v1/topic',
+            '/topic-stance-detector/v1/covid-vaccine',
             method='POST',
-            data=json.dumps(covidTopic),
+            data=json.dumps(body),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
